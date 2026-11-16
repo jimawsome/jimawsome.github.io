@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jimmy Daruwala | Kubernetes Platform and Site Reliability Engineer</title>
+  <meta name="description" content="Jimmy Daruwala, Kubernetes platform and site reliability engineer. 13 years running production systems; today a 128-cluster Kubernetes fleet.">
+  <meta property="og:title" content="Jimmy Daruwala | Kubernetes Platform and SRE">
+  <meta property="og:description" content="Fleet-scale Kubernetes lifecycle, safe upgrades, GPU nodes, and the automation that removes toil.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jimawsome.github.io/">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <header class="wrap hero">
+    <button class="status" id="status" aria-expanded="false" aria-controls="incident">
+      <span class="dot"></span> All systems operational
+    </button>
+    <p class="incident" id="incident" hidden>
+      Last incident: lost a pickleball game 10-11.
+      Root cause: overconfidence at the kitchen line. Action item: more dinks, fewer drives.
+    </p>
+    <p class="eyebrow">Kubernetes Platform and Site Reliability Engineer</p>
+    <h1>Jimmy Daruwala</h1>
+    <p class="lede">
+      I keep large Kubernetes fleets upgraded, secure, and boring.
+      13 years in production operations, from the 2014 Sochi Olympics broadcast to a
+      128-cluster platform running 2,300+ applications for 30+ product teams today.
+    </p>
+    <nav class="links">
+      <a href="#work">Selected work</a>
+      <a href="#project">Open source</a>
+      <a href="#experience">Experience</a>
+      <a href="https://www.linkedin.com/in/jimmy-daruwala">LinkedIn</a>
+      <a href="https://github.com/jimawsome">GitHub</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section id="numbers" class="stats">
+      <div><strong>128 / 2,300+</strong><span>clusters and applications on the platform I own</span></div>
+      <div><strong>$394K</strong><span>annualized support exposure avoided</span></div>
+      <div><strong>5 h → 2 min</strong><span>fleet-wide version and drift audit</span></div>
+      <div><strong>1-2 h → 30-40 min</strong><span>blocked upgrade runs, self-recovering</span></div>
+    </section>
+
+    <section id="work">
+      <h2>Selected work</h2>
+
+      <article class="case">
+        <h3>The Upgrade Whisperer</h3>
+        <p class="meta">Kubernetes and addon upgrades · every EKS generation · PodDisruptionBudgets</p>
+        <p><b>Scope.</b> Kubernetes and platform addon upgrades, automated for every cluster across
+          three EKS generations and four environments.</p>
+        <p><b>Problem.</b> Upgrade pipelines on 89 production clusters stalled for hours when
+          disruption budgets blocked node drain or worker nodes went stale.</p>
+        <p><b>Decision.</b> Detect the stall early and recover inside the pipeline, rather than
+          paging a human or forcing evictions: drain only what the budgets allow, replace stale
+          nodes automatically, and stop if anything looks unknown.</p>
+        <p><b>Result.</b> Affected runs went from 1 to 2 hours to 30 to 40 minutes, worth up to
+          240 engineering hours per upgrade campaign.</p>
+      </article>
+
+      <article class="case">
+        <h3>One operations platform instead of a 15-step runbook</h3>
+        <p class="meta">Python · MCP server · GitHub Actions</p>
+        <p><b>Problem.</b> Every upgrade and audit was a manual runbook that differed by platform
+          generation, and only a few people could run it.</p>
+        <p><b>Decision.</b> Build one CLI, MCP server, and CI workflow with safety gates that
+          refuse to upgrade when nodes lag the control plane or when auth, dashboard, or GitOps
+          components are unhealthy.</p>
+        <p><b>Result.</b> Fleet-wide audits dropped from 5+ hours to about 2 minutes, and the SRE
+          team now runs the fleet on it.</p>
+      </article>
+
+      <article class="case">
+        <h3>Patching before it pages</h3>
+        <p class="meta">Vulnerability remediation · Wiz · IAM and workload identity</p>
+        <p>Remediated critical and high vulnerabilities across the fleet, and worked down the
+          medium and low findings alongside them so they never grew into the next critical. Built
+          the security baseline underneath: EKS Access Entries, IRSA, IMDSv2, and KMS.</p>
+      </article>
+
+      <article class="case">
+        <h3>Finishing a fleet migration before the deadline cost money</h3>
+        <p class="meta">EKS · Amazon Linux 2023 · GPU node images</p>
+        <p><b>Problem.</b> 90 clusters were on an aging node image and Terraform module, heading
+          into paid extended support.</p>
+        <p><b>Decision.</b> Sequence a four-major-version module migration with the AL2023 node
+          image move, including NVIDIA GPU node groups with drivers baked into the image and GPU
+          taints preserved, promoted through test, dev, staging, and production.</p>
+        <p><b>Result.</b> Upgrades finished before standard support ended, avoiding $394,200 in
+          annualized premium support exposure.</p>
+      </article>
+
+      <article class="case">
+        <h3>Fixing the system, not the symptom</h3>
+        <p class="meta">Root cause analysis · Karpenter · Network policy</p>
+        <p>Health checks failing about 90% of the time on a shared cluster traced to the
+          autoscaler choosing undersized spot instances; fixed with a capacity safeguard scoped to
+          that cluster only. A two-hour Terraform retry loop replaced with a 10-second pre-flight
+          check. A security scan that had silently failed for three months, restored.</p>
+      </article>
+    </section>
+
+    <section id="project">
+      <h2>Open source</h2>
+      <article class="case project">
+        <h3><a href="https://github.com/jimawsome/gpu-fleet-guardian">gpu-fleet-guardian</a> <span class="tag">in progress</span></h3>
+        <p class="meta">Go · Kubernetes operator · NVIDIA DCGM · LLM agent</p>
+        <p>A Kubernetes operator that watches GPU health through DCGM, takes faulty nodes out of
+          service safely (taint, cordon, PDB-aware drain, a concurrency budget, dry-run by
+          default), and brings them back once healthy. An AI triage agent, written from scratch,
+          reads the evidence and records a root-cause summary on each remediation.</p>
+      </article>
+    </section>
+
+    <section id="experience">
+      <h2>Experience</h2>
+      <ul class="timeline">
+        <li><span>2022 to now</span><b>McKinsey &amp; Company</b>, Cloud Platform Engineer. Reliability, security, and lifecycle for the firm's Kubernetes platform.</li>
+        <li><span>2020 to 2022</span><b>CAI (client: PennDOT)</b>, DevSecOps Cloud Engineer. One gated CI/CD pipeline for 200+ state applications, AKS.</li>
+        <li><span>2019 to 2020</span><b>Datamart Systems</b>, Cloud and Monitoring Engineer. Datacenter to AWS migrations for Mercedes-Benz USA and US Bank.</li>
+        <li><span>2017 to 2019</span><b>KForce (client: Wells Fargo)</b>, DevOps Engineer. The bank's largest APM rollout, 1,725 applications.</li>
+        <li><span>2013 to 2017</span><b>AG Technologies</b>, DevOps and Middleware Engineer. Led 24/7 support for the 2014 Sochi Olympics broadcast at NBC Universal.</li>
+      </ul>
+
+      <h3 class="sub">Certifications</h3>
+      <p class="certs">CKA · AWS Solutions Architect Associate · HashiCorp Terraform Associate ·
+        AWS AI Practitioner · FinOps Certified Practitioner · FOCUS Analyst</p>
+    </section>
+
+    <section id="off-call">
+      <h2>Off-call</h2>
+      <p class="hint">When the pager is quiet, this is what's running. Click a hobby to delete it.</p>
+      <div class="term" role="region" aria-label="Hobbies as Kubernetes pods">
+        <div class="term-bar"><i></i><i></i><i></i><span>jimmy@off-call: ~</span></div>
+        <div class="term-body">
+<div><span class="prompt">$</span> kubectl get hobbies -n off-call</div>
+<table id="hobbies">
+  <thead><tr><th>NAME</th><th>STATUS</th><th>RESTARTS</th><th>NOTE</th></tr></thead>
+  <tbody>
+    <tr data-name="table-tennis"><td><button>table-tennis</button></td><td class="st">Running</td><td class="rs">0</td><td>forehand loop in prod, backhand still in staging</td></tr>
+    <tr data-name="rock-climbing"><td><button>rock-climbing</button></td><td class="st">Running</td><td class="rs">37</td><td>every restart is a fall. still converging</td></tr>
+    <tr data-name="skiing"><td><button>skiing</button></td><td class="st">Running</td><td class="rs">0</td><td>scales to zero every summer</td></tr>
+    <tr data-name="cooking"><td><button>cooking</button></td><td class="st">Running</td><td class="rs">0</td><td>no SLO, customer satisfaction stays high</td></tr>
+    <tr data-name="pickleball"><td><button>pickleball</button></td><td class="st">Running</td><td class="rs">0</td><td>eventually consistent at the kitchen line</td></tr>
+  </tbody>
+</table>
+<pre id="term-log" aria-live="polite"></pre>
+<div><span class="prompt">$</span> <span class="cursor">▍</span></div>
+</div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Atlanta, GA, open to relocation.
+        <a href="mailto:jimmy.jdaruwala@gmail.com">jimmy.jdaruwala@gmail.com</a></p>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <p>Plain HTML, CSS, and a little JavaScript, served by GitHub Pages. Views here are my own.</p>
+  </footer>
+  <script src="sky.js"></script>
+  <script src="site.js"></script>
+</body>
+</html>

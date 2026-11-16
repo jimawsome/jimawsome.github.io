@@ -1,0 +1,96 @@
+:root {
+  --bg: #0f1115;
+  --fg: #e6e8eb;
+  --muted: #9aa3ad;
+  --accent: #76b900;
+  --card: #171a20;
+  --line: #262a32;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: radial-gradient(ellipse at 70% -10%, #1b2433 0%, var(--bg) 55%) fixed, var(--bg);
+  color: var(--fg);
+  font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+}
+
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.hero { padding: 72px 20px 32px; }
+.eyebrow { color: var(--accent); font-weight: 600; letter-spacing: .02em; margin: 0; }
+h1 { font-size: 44px; line-height: 1.1; margin: 8px 0 16px; }
+.lede { font-size: 20px; color: var(--fg); margin: 0 0 24px; }
+
+.links { display: flex; flex-wrap: wrap; gap: 8px 20px; font-weight: 500; }
+
+section { padding: 28px 0; border-top: 1px solid var(--line); }
+h2 { font-size: 24px; margin: 0 0 16px; }
+h3 { font-size: 19px; margin: 0 0 4px; }
+h3.sub { margin-top: 24px; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  border-top: 0;
+}
+.stats div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+.stats strong { display: block; font-size: 19px; white-space: nowrap; color: var(--accent); }
+.stats span { color: var(--muted); font-size: 14px; }
+
+.case { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 20px; margin-bottom: 14px; }
+.case p { margin: 8px 0; }
+.meta { color: var(--muted); font-size: 14px; margin-top: 0 !important; }
+.tag { font-size: 12px; color: var(--bg); background: var(--accent); border-radius: 999px; padding: 2px 8px; vertical-align: middle; }
+
+.timeline { list-style: none; padding: 0; margin: 0; }
+.timeline li { padding: 8px 0; border-bottom: 1px solid var(--line); }
+.timeline span { display: inline-block; min-width: 120px; color: var(--muted); font-size: 14px; }
+
+.certs { color: var(--muted); }
+
+.status {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--card); color: var(--muted); border: 1px solid var(--line);
+  border-radius: 999px; padding: 4px 12px; font: inherit; font-size: 13px; cursor: pointer;
+  margin-bottom: 20px;
+}
+.status:hover { color: var(--fg); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+@keyframes pulse { 50% { opacity: .35; } }
+.incident { color: var(--muted); font-size: 14px; margin: -8px 0 20px; max-width: 520px; }
+
+.hint { color: var(--muted); margin-top: 0; }
+.term { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #0a0c0f; }
+.term-bar { display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: var(--card); border-bottom: 1px solid var(--line); }
+.term-bar i { width: 11px; height: 11px; border-radius: 50%; background: #ff5f56; }
+.term-bar i:nth-child(2) { background: #ffbd2e; }
+.term-bar i:nth-child(3) { background: #27c93f; }
+.term-bar span { color: var(--muted); font-size: 12px; margin-left: 8px; }
+.term-body { padding: 14px 16px; font: 13.5px/1.7 ui-monospace, SFMono-Regular, Menlo, monospace; overflow-x: auto; }
+.prompt { color: var(--accent); }
+#hobbies { border-collapse: collapse; margin: 4px 0; white-space: nowrap; }
+#hobbies th { text-align: left; font-weight: 400; color: var(--muted); padding-right: 24px; }
+#hobbies td { padding-right: 24px; vertical-align: top; }
+#hobbies td:last-child { color: var(--muted); }
+#hobbies button { all: unset; cursor: pointer; color: var(--fg); border-bottom: 1px dashed var(--muted); }
+#hobbies button:hover, #hobbies button:focus-visible { color: var(--accent); border-color: var(--accent); }
+.st { color: var(--accent); }
+.st.warn { color: #ffbd2e; }
+#term-log { margin: 0; font: inherit; color: var(--fg); white-space: pre-wrap; }
+.cursor { animation: pulse 1s steps(1) infinite; }
+
+footer { padding: 32px 20px 48px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
+
+@media (max-width: 560px) {
+  h1 { font-size: 34px; }
+  .timeline span { display: block; }
+}
+
+#sky { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+.case, .stats div, .term { backdrop-filter: blur(2px); background-color: rgba(23, 26, 32, .82); }
